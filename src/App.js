@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ListaProyectos from "./ListaProyectos";
+import FormularioIngreso from "./FormularioIngreso";
 
-function App() {
+function AppPrincipal() {
+  const [proyectos, setproyectos] = useState([]);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+  const newProyecto = (proyectos) => {
+    setproyectos([...proyectos, proyectos]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Gestión de Proyecto</h1>
+
+      <ListaProyectos proyectos={proyectos} />
+
+      <button onClick={() => setMostrarFormulario(!mostrarFormulario)}>
+        {mostrarFormulario ? 'Ocultar Formulario' : 'Agregar Proyecto'}
+      </button>
+      {mostrarFormulario && <FormularioIngreso addProyecto={newProyecto} />}
     </div>
   );
 }
 
-export default App;
+export default AppPrincipal;
